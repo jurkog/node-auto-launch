@@ -4,7 +4,8 @@
   "description": "Launch node applications or executables at login (Mac, Windows, and Linux)",
   "main": "dist/index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "build": "gulp"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -45,6 +46,7 @@
   "dependencies": {
     "applescript": "^1.0.0",
     "mkdirp": "^0.5.1",
+    "node": "10.18.0",
     "path-is-absolute": "^1.0.0",
     "untildify": "^3.0.2",
     "winreg": "1.2.4"
