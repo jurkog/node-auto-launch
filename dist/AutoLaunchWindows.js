@@ -33,7 +33,7 @@ module.exports = {
           args += ' --hidden';
         }
       }
-      return regKey.set(appName, Winreg.REG_SZ, "\"" + pathToAutoLaunchedApp + "\"" + args, function(err) {
+      return regKey.set(appName, Winreg.REG_SZ, "" + pathToAutoLaunchedApp + args, function(err) {
         if (err != null) {
           return reject(err);
         }
