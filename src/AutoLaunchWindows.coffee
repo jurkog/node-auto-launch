@@ -15,12 +15,13 @@ module.exports =
     # options - {Object}
     #   :appName - {String}
     #   :appPath - {String}
+    #   :appArgs - {String}
     #   :isHiddenOnLaunch - {Boolean}
     # Returns a Promise
-    enable: ({appName, appPath, isHiddenOnLaunch}) ->
+    enable: ({appName, appPath, appArgs, isHiddenOnLaunch}) ->
         return new Promise (resolve, reject) ->
             pathToAutoLaunchedApp = appPath
-            args = ''
+            args = appArgs
             updateDotExe = path.join(path.dirname(process.execPath), '..', 'update.exe')
 
             # If they're using Electron and Squirrel.Windows, point to its Update.exe instead

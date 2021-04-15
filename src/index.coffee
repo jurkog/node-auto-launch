@@ -12,13 +12,15 @@ module.exports = class AutoLaunch
     #           to add Login Item
     #   :name - {String}
     #   :path - (Optional) {String}
-    constructor: ({name, isHidden, mac, path}) ->
+    #   :args - (Optional) {String}
+    constructor: ({name, isHidden, mac, path, args}) ->
         throw new Error 'You must specify a name' unless name?
 
         @opts =
             appName: name
             isHiddenOnLaunch: if isHidden? then isHidden else false
             mac: mac ? {}
+            appArgs: args
 
         versions = process?.versions
         if path?
@@ -81,14 +83,6 @@ module.exports = class AutoLaunch
 
         if /darwin/.test process.platform
             @opts.appPath = @fixMacExecPath(@opts.appPath, @opts.mac)
-
-        if @opts.appPath.indexOf('/') isnt -1
-            tempPath = @opts.appPath.split '/'
-            @opts.appName = tempPath[tempPath.length - 1]
-        else if @opts.appPath.indexOf('\\') isnt -1
-            tempPath = @opts.appPath.split '\\'
-            @opts.appName = tempPath[tempPath.length - 1]
-            @opts.appName = @opts.appName.substr(0, @opts.appName.length - '.exe'.length)
 
         if /darwin/.test process.platform
             # Remove ".app" from the appName if it exists

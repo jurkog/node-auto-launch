@@ -7,8 +7,8 @@ module.exports = AutoLaunch = (function() {
 
   /* Public */
   function AutoLaunch(arg) {
-    var isHidden, mac, name, path, versions;
-    name = arg.name, isHidden = arg.isHidden, mac = arg.mac, path = arg.path;
+    var args, isHidden, mac, name, path, versions;
+    name = arg.name, isHidden = arg.isHidden, mac = arg.mac, path = arg.path, args = arg.args;
     this.fixOpts = bind(this.fixOpts, this);
     this.isEnabled = bind(this.isEnabled, this);
     this.disable = bind(this.disable, this);
@@ -19,7 +19,8 @@ module.exports = AutoLaunch = (function() {
     this.opts = {
       appName: name,
       isHiddenOnLaunch: isHidden != null ? isHidden : false,
-      mac: mac != null ? mac : {}
+      mac: mac != null ? mac : {},
+      appArgs: args
     };
     versions = typeof process !== "undefined" && process !== null ? process.versions : void 0;
     if (path != null) {
@@ -69,18 +70,9 @@ module.exports = AutoLaunch = (function() {
   };
 
   AutoLaunch.prototype.fixOpts = function() {
-    var tempPath;
     this.opts.appPath = this.opts.appPath.replace(/\/$/, '');
     if (/darwin/.test(process.platform)) {
       this.opts.appPath = this.fixMacExecPath(this.opts.appPath, this.opts.mac);
-    }
-    if (this.opts.appPath.indexOf('/') !== -1) {
-      tempPath = this.opts.appPath.split('/');
-      this.opts.appName = tempPath[tempPath.length - 1];
-    } else if (this.opts.appPath.indexOf('\\') !== -1) {
-      tempPath = this.opts.appPath.split('\\');
-      this.opts.appName = tempPath[tempPath.length - 1];
-      this.opts.appName = this.opts.appName.substr(0, this.opts.appName.length - '.exe'.length);
     }
     if (/darwin/.test(process.platform)) {
       if (this.opts.appName.indexOf('.app', this.opts.appName.length - '.app'.length) !== -1) {

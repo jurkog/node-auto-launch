@@ -15,12 +15,12 @@ module.exports = {
 
   /* Public */
   enable: function(arg) {
-    var appName, appPath, isHiddenOnLaunch;
-    appName = arg.appName, appPath = arg.appPath, isHiddenOnLaunch = arg.isHiddenOnLaunch;
+    var appArgs, appName, appPath, isHiddenOnLaunch;
+    appName = arg.appName, appPath = arg.appPath, appArgs = arg.appArgs, isHiddenOnLaunch = arg.isHiddenOnLaunch;
     return new Promise(function(resolve, reject) {
       var args, pathToAutoLaunchedApp, ref, updateDotExe;
       pathToAutoLaunchedApp = appPath;
-      args = '';
+      args = appArgs;
       updateDotExe = path.join(path.dirname(process.execPath), '..', 'update.exe');
       if ((((ref = process.versions) != null ? ref.electron : void 0) != null) && fs.existsSync(updateDotExe)) {
         pathToAutoLaunchedApp = updateDotExe;
