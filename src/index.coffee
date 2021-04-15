@@ -23,12 +23,8 @@ module.exports = class AutoLaunch
             appArgs: args
 
         versions = process?.versions
-        if path?
-            # Verify that the path is absolute
-            throw new Error 'path must be absolute' unless isPathAbsolute path
-            @opts.appPath = path
 
-        else if versions? and (versions.nw? or versions['node-webkit']? or versions.electron?)
+        if path == null and versions? and (versions.nw? or versions['node-webkit']? or versions.electron?)
             @opts.appPath = process.execPath
 
         else
