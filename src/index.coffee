@@ -24,7 +24,9 @@ module.exports = class AutoLaunch
 
         versions = process?.versions
 
-        if path == null and versions? and (versions.nw? or versions['node-webkit']? or versions.electron?)
+        if path?
+            @opts.appPath = path
+        else if versions? and (versions.nw? or versions['node-webkit']? or versions.electron?)
             @opts.appPath = process.execPath
 
         else

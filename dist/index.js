@@ -23,7 +23,9 @@ module.exports = AutoLaunch = (function() {
       appArgs: args
     };
     versions = typeof process !== "undefined" && process !== null ? process.versions : void 0;
-    if (path === null && (versions != null) && ((versions.nw != null) || (versions['node-webkit'] != null) || (versions.electron != null))) {
+    if (path != null) {
+      this.opts.appPath = path;
+    } else if ((versions != null) && ((versions.nw != null) || (versions['node-webkit'] != null) || (versions.electron != null))) {
       this.opts.appPath = process.execPath;
     } else {
       throw new Error('You must give a path (this is only auto-detected for NW.js and Electron apps)');
